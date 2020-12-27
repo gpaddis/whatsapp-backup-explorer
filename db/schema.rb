@@ -45,11 +45,129 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["call_log_row_id", "jid_row_id"], name: "call_log_participant_key_index", unique: true
   end
 
-# Could not dump table "chat" because of following StandardError
-#   Unknown type 'REAL' for column 'gen'
+  # Could not dump table "chat" because of following StandardError
+  #   Unknown type 'REAL' for column 'gen'
+  #
+  # CREATE TABLE chat (
+    # _id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # jid_row_id INTEGER UNIQUE,
+    # hidden INTEGER,
+    # subject TEXT,
+    # created_timestamp INTEGER,
+    # display_message_row_id INTEGER,
+    # last_message_row_id INTEGER,
+    # last_read_message_row_id INTEGER,
+    # last_read_receipt_sent_message_row_id INTEGER,
+    # last_important_message_row_id INTEGER,
+    # archived INTEGER,
+    # sort_timestamp INTEGER,
+    # mod_tag INTEGER,
+    # gen REAL,
+    # spam_detection INTEGER,
+    # unseen_earliest_message_received_time INTEGER,
+    # unseen_message_count INTEGER,
+    # unseen_missed_calls_count INTEGER,
+    # unseen_row_count INTEGER,
+    # plaintext_disabled INTEGER,
+    # vcard_ui_dismissed INTEGER,
+    # change_number_notified_message_row_id INTEGER,
+    # show_group_description INTEGER,
+    # ephemeral_expiration INTEGER,
+    # last_read_ephemeral_message_row_id INTEGER,
+    # ephemeral_setting_timestamp INTEGER
+  # )
 
-# Could not dump table "chat_list" because of following StandardError
-#   Unknown type 'REAL' for column 'gen'
+  create_table "chat", primary_key: "_id", force: :cascade do |t|
+    t.integer "jid_row_id"
+    t.integer "hidden"
+    t.text "subject"
+    t.integer "created_timestamp"
+    t.integer "display_message_row_id"
+    t.integer "last_message_row_id"
+    t.integer "last_read_message_row_id"
+    t.integer "last_read_receipt_sent_message_row_id"
+    t.integer "last_important_message_row_id"
+    t.integer "archived"
+    t.integer "sort_timestamp"
+    t.integer "mod_tag"
+    t.float "gen"
+    t.integer "spam_detection"
+    t.integer "unseen_earliest_message_received_time"
+    t.integer "unseen_message_count"
+    t.integer "unseen_missed_calls_count"
+    t.integer "unseen_row_count"
+    t.integer "plaintext_disabled"
+    t.integer "vcard_ui_dismissed"
+    t.integer "change_number_notified_message_row_id"
+    t.integer "show_group_description"
+    t.integer "ephemeral_expiration"
+    t.integer "last_read_ephemeral_message_row_id"
+    t.integer "ephemeral_setting_timestamp"
+  end
+
+  # Could not dump table "chat_list" because of following StandardError
+  #   Unknown type 'REAL' for column 'gen'
+  #
+  # CREATE TABLE chat_list (
+    # _id INTEGER PRIMARY KEY AUTOINCREMENT,
+    # key_remote_jid TEXT UNIQUE,
+    # message_table_id INTEGER,
+    # subject TEXT,
+    # creation INTEGER,
+    # last_read_message_table_id INTEGER,
+    # last_read_receipt_sent_message_table_id INTEGER,
+    # archived INTEGER,
+    # sort_timestamp INTEGER,
+    # mod_tag INTEGER,
+    # gen REAL,
+    # my_messages INTEGER,
+    # plaintext_disabled BOOLEAN,
+    # last_message_table_id INTEGER,
+    # unseen_message_count INTEGER,
+    # unseen_missed_calls_count INTEGER,
+    # unseen_row_count INTEGER,
+    # vcard_ui_dismissed INTEGER,
+    # deleted_message_id INTEGER,
+    # deleted_starred_message_id INTEGER,
+    # deleted_message_categories TEXT,
+    # change_number_notified_message_id INTEGER,
+    # last_important_message_table_id INTEGER,
+    # show_group_description INTEGER,
+    # unseen_earliest_message_received_time INTEGER,
+    # ephemeral_expiration INTEGER,
+    # last_read_ephemeral_message_table_id INTEGER,
+    # ephemeral_setting_timestamp INTEGER
+  # )
+
+  create_table "chat_list", primary_key: "_id", force: :cascade do |t|
+    t.text "key_remote_jid"
+    t.integer "message_table_id"
+    t.text "subject"
+    t.integer "creation"
+    t.integer "last_read_message_table_id"
+    t.integer "last_read_receipt_sent_message_table_id"
+    t.integer "archived"
+    t.integer "sort_timestamp"
+    t.integer "mod_tag"
+    t.float "gen"
+    t.integer "my_messages"
+    t.boolean "plaintext_disabled"
+    t.integer "last_message_table_id"
+    t.integer "unseen_message_count"
+    t.integer "unseen_missed_calls_count"
+    t.integer "unseen_row_count"
+    t.integer "vcard_ui_dismissed"
+    t.integer "deleted_message_id"
+    t.integer "deleted_starred_message_id"
+    t.text "deleted_message_categories"
+    t.integer "change_number_notified_message_id"
+    t.integer "last_important_message_table_id"
+    t.integer "show_group_description"
+    t.integer "unseen_earliest_message_received_time"
+    t.integer "ephemeral_expiration"
+    t.integer "last_read_ephemeral_message_table_id"
+    t.integer "ephemeral_setting_timestamp"
+  end
 
   create_table "conversion_tuples", primary_key: "jid_row_id", force: :cascade do |t|
     t.text "data"
@@ -169,11 +287,23 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["label_id", "message_row_id"], name: "labeled_messages_index", unique: true
   end
 
-# Could not dump table "labeled_messages_fts" because of following StandardError
-#   Unknown type '' for column 'content'
+  # Could not dump table "labeled_messages_fts" because of following StandardError
+  #   Unknown type '' for column 'content'
+  #
+  # CREATE VIRTUAL TABLE labeled_messages_fts USING FTS3()
+  create_table "labeled_messages", force: :cascade do |t|
+    t.text "content"
+  end
 
-# Could not dump table "labeled_messages_fts_content" because of following StandardError
-#   Unknown type '' for column 'c0content'
+
+  # Could not dump table "labeled_messages_fts_content" because of following StandardError
+  #   Unknown type '' for column 'c0content'
+  #
+  # CREATE TABLE 'labeled_messages_fts_content'(docid INTEGER PRIMARY KEY, 'c0content')
+  create_table "labeled_messages_fts_content", primary_key: "docid", force: :cascade do |t|
+    t.text "c0content"
+  end
+
 
   create_table "labeled_messages_fts_segdir", primary_key: ["level", "idx"], force: :cascade do |t|
     t.integer "level"
@@ -259,11 +389,27 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "forward_score"
   end
 
-# Could not dump table "message_ftsv2" because of following StandardError
-#   Unknown type '' for column 'content'
+  # Could not dump table "message_ftsv2" because of following StandardError
+  #   Unknown type '' for column 'content'
+  #
+  # CREATE VIRTUAL TABLE message_ftsv2 USING FTS4(content, fts_jid, fts_namespace)
+  create_table "message_ftsv2", primary_key: "docid", force: :cascade do |t|
+    t.text "content"
+    t.text "fts_jid"
+    t.text "fts_namespace"
+  end
 
-# Could not dump table "message_ftsv2_content" because of following StandardError
-#   Unknown type '' for column 'c0content'
+
+  # Could not dump table "message_ftsv2_content" because of following StandardError
+  #   Unknown type '' for column 'c0content'
+  #
+  # CREATE TABLE 'message_ftsv2_content'(docid INTEGER PRIMARY KEY, 'c0content', 'c1fts_jid', 'c2fts_namespace')
+  create_table "message_ftsv2_content", primary_key: "docid", force: :cascade do |t|
+    t.text "c0content"
+    t.text "c1fts_jid"
+    t.text "c2fts_namespace"
+  end
+
 
   create_table "message_ftsv2_docsize", primary_key: "docid", force: :cascade do |t|
     t.binary "size"
@@ -308,17 +454,156 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["message_row_id", "link_index"], name: "message_link_index", unique: true
   end
 
-# Could not dump table "message_location" because of following StandardError
-#   Unknown type 'REAL' for column 'latitude'
+  # Could not dump table "message_location" because of following StandardError
+  #   Unknown type 'REAL' for column 'latitude'
+  #
+  # CREATE TABLE message_location (
+  #   message_row_id INTEGER PRIMARY KEY,
+  #   chat_row_id INTEGER,
+  #   latitude REAL,
+  #   longitude REAL,
+  #   place_name TEXT,
+  #   place_address TEXT,
+  #   url TEXT,
+  #   live_location_share_duration INTEGER,
+  #   live_location_sequence_number INTEGER,
+  #   live_location_final_latitude REAL,
+  #   live_location_final_longitude REAL,
+  #   live_location_final_timestamp INTEGER,
+  #   map_download_status INTEGER
+  # )
+  create_table "message_location", primary_key: "message_row_id", force: :cascade do |t|
+    t.integer "chat_row_id"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "place_name"
+    t.text "place_address"
+    t.text "url"
+    t.integer "live_location_share_duration"
+    t.integer "live_location_sequence_number"
+    t.float "live_location_final_latitude"
+    t.float "live_location_final_longitude"
+    t.integer "live_location_final_timestamp"
+    t.integer "map_download_status"
+  end
 
-# Could not dump table "message_media" because of following StandardError
-#   Unknown type 'REAL' for column 'thumbnail_height_width_ratio'
 
-# Could not dump table "message_media_interactive_annotation" because of following StandardError
-#   Unknown type 'REAL' for column 'location_latitude'
+  # Could not dump table "message_media" because of following StandardError
+  #   Unknown type 'REAL' for column 'thumbnail_height_width_ratio'
+  #
+  # CREATE TABLE message_media (
+  #   message_row_id INTEGER PRIMARY KEY,
+  #   chat_row_id INTEGER,
+  #   autotransfer_retry_enabled INTEGER,
+  #   multicast_id TEXT,
+  #   media_job_uuid TEXT,
+  #   transferred INTEGER,
+  #   transcoded INTEGER,
+  #   file_path TEXT,
+  #   file_size INTEGER,
+  #   suspicious_content INTEGER,
+  #   trim_from INTEGER,
+  #   trim_to INTEGER,
+  #   face_x INTEGER,
+  #   face_y INTEGER,
+  #   media_key BLOB,
+  #   media_key_timestamp INTEGER,
+  #   width INTEGER,
+  #   height INTEGER,
+  #   has_streaming_sidecar INTEGER,
+  #   gif_attribution INTEGER,
+  #   thumbnail_height_width_ratio REAL,
+  #   direct_path TEXT,
+  #   first_scan_sidecar BLOB,
+  #   first_scan_length INTEGER,
+  #   message_url TEXT,
+  #   mime_type TEXT,
+  #   file_length INTEGER,
+  #   media_name TEXT,
+  #   file_hash TEXT,
+  #   media_duration INTEGER,
+  #   page_count INTEGER,
+  #   enc_file_hash TEXT,
+  #   partial_media_hash TEXT,
+  #   partial_media_enc_hash TEXT,
+  #   is_animated_sticker INTEGER,
+  #   original_file_hash TEXT
+  # )
+  create_table "message_media", primary_key: "message_row_id", force: :cascade do |t|
+    t.integer "chat_row_id"
+    t.integer "autotransfer_retry_enabled"
+    t.text "multicast_id"
+    t.text "media_job_uuid"
+    t.integer "transferred"
+    t.integer "transcoded"
+    t.text "file_path"
+    t.integer "file_size"
+    t.integer "suspicious_content"
+    t.integer "trim_from"
+    t.integer "trim_to"
+    t.integer "face_x"
+    t.integer "face_y"
+    t.binary "media_key"
+    t.integer "media_key_timestamp"
+    t.integer "width"
+    t.integer "height"
+    t.integer "has_streaming_sidecar"
+    t.integer "gif_attribution"
+    t.float "thumbnail_height_width_ratio"
+    t.text "direct_path"
+    t.binary "first_scan_sidecar"
+    t.integer "first_scan_length"
+    t.text "message_url"
+    t.text "mime_type"
+    t.integer "file_length"
+    t.text "media_name"
+    t.text "file_hash"
+    t.integer "media_duration"
+    t.integer "page_count"
+    t.text "enc_file_hash"
+    t.text "partial_media_hash"
+    t.text "partial_media_enc_hash"
+    t.integer "is_animated_sticker"
+    t.text "original_file_hash"
+  end
 
-# Could not dump table "message_media_interactive_annotation_vertex" because of following StandardError
-#   Unknown type 'REAL' for column 'x'
+
+  # Could not dump table "message_media_interactive_annotation" because of following StandardError
+  #   Unknown type 'REAL' for column 'location_latitude'
+  #
+  # CREATE TABLE message_media_interactive_annotation (
+  #   _id INTEGER PRIMARY KEY AUTOINCREMENT,
+  #   message_row_id INTEGER,
+  #   location_latitude REAL,
+  #   location_longitude REAL,
+  #   location_name TEXT,
+  #   sort_order INTEGER
+  # )
+  create_table "message_media_interactive_annotation", primary_key: "_id", force: :cascade do |t|
+    t.integer "message_row_id"
+    t.float "location_latitude"
+    t.float "location_longitude"
+    t.text "location_name"
+    t.integer "sort_order"
+  end
+
+
+  # Could not dump table "message_media_interactive_annotation_vertex" because of following StandardError
+  #   Unknown type 'REAL' for column 'x'
+  #
+  # CREATE TABLE message_media_interactive_annotation_vertex (
+  #   _id INTEGER PRIMARY KEY AUTOINCREMENT,
+  #   message_media_interactive_annotation_row_id INTEGER,
+  #   x REAL,
+  #   y REAL,
+  #   sort_order INTEGER
+  # )
+  create_table "message_media_interactive_annotation_vertex", primary_key: "_id", force: :cascade do |t|
+    t.integer "message_media_interactive_annotation_row_id"
+    t.float "x"
+    t.float "y"
+    t.integer "sort_order"
+  end
 
   create_table "message_media_vcard_count", primary_key: "_id", force: :cascade do |t|
     t.integer "message_row_id"
@@ -436,8 +721,27 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "expired"
   end
 
-# Could not dump table "message_quoted_location" because of following StandardError
-#   Unknown type 'REAL' for column 'latitude'
+  # Could not dump table "message_quoted_location" because of following StandardError
+  #   Unknown type 'REAL' for column 'latitude'
+  #
+  # CREATE TABLE message_quoted_location (
+  #   message_row_id INTEGER PRIMARY KEY,
+  #   latitude REAL,
+  #   longitude REAL,
+  #   place_name TEXT,
+  #   place_address TEXT,
+  #   url TEXT,
+  #   thumbnail BLOB
+  # )
+  create_table "message_quoted_location", primary_key: "message_row_id", force: :cascade do |t|
+    t.float "latitude"
+    t.float "longitude"
+    t.text "place_name"
+    t.text "place_address"
+    t.text "url"
+    t.binary "thumbnail"
+  end
+
 
   create_table "message_quoted_media", primary_key: "message_row_id", force: :cascade do |t|
     t.text "media_job_uuid"
@@ -649,8 +953,93 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["state"], name: "message_view_once_media_state_index"
   end
 
-# Could not dump table "messages" because of following StandardError
-#   Unknown type 'REAL' for column 'latitude'
+  # Could not dump table "messages" because of following StandardError
+  #   Unknown type 'REAL' for column 'latitude'
+  #
+  # CREATE TABLE messages (
+  #   _id INTEGER PRIMARY KEY AUTOINCREMENT,
+  #   key_remote_jid TEXT NOT NULL,
+  #   key_from_me INTEGER,
+  #   key_id TEXT NOT NULL,
+  #   status INTEGER,
+  #   needs_push INTEGER,
+  #   data TEXT,
+  #   timestamp INTEGER,
+  #   media_url TEXT,
+  #   media_mime_type TEXT,
+  #   media_wa_type TEXT,
+  #   media_size INTEGER,
+  #   media_name TEXT,
+  #   media_hash TEXT,
+  #   media_duration INTEGER,
+  #   origin INTEGER,
+  #   latitude REAL,
+  #   longitude REAL,
+  #   thumb_image TEXT,
+  #   remote_resource TEXT,
+  #   received_timestamp INTEGER,
+  #   send_timestamp INTEGER,
+  #   receipt_server_timestamp INTEGER,
+  #   receipt_device_timestamp INTEGER,
+  #   raw_data BLOB,
+  #   recipient_count INTEGER,
+  #   read_device_timestamp INTEGER,
+  #   played_device_timestamp INTEGER,
+  #   media_caption TEXT,
+  #   participant_hash TEXT,
+  #   starred INTEGER,
+  #   quoted_row_id INTEGER,
+  #   mentioned_jids TEXT,
+  #   multicast_id TEXT,
+  #   edit_version INTEGER,
+  #   media_enc_hash TEXT,
+  #   payment_transaction_id TEXT,
+  #   forwarded INTEGER,
+  #   preview_type INTEGER,
+  #   send_count INTEGER
+  # )
+  create_table "messages", primary_key: "_id", force: :cascade do |t|
+    t.text "key_remote_jid"
+    t.integer "key_from_me"
+    t.text "key_id"
+    t.integer "status"
+    t.integer "needs_push"
+    t.text "data"
+    t.integer "timestamp"
+    t.text "media_url"
+    t.text "media_mime_type"
+    t.text "media_wa_type"
+    t.integer "media_size"
+    t.text "media_name"
+    t.text "media_hash"
+    t.integer "media_duration"
+    t.integer "origin"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "thumb_image"
+    t.text "remote_resource"
+    t.integer "received_timestamp"
+    t.integer "send_timestamp"
+    t.integer "receipt_server_timestamp"
+    t.integer "receipt_device_timestamp"
+    t.binary "raw_data"
+    t.integer "recipient_count"
+    t.integer "read_device_timestamp"
+    t.integer "played_device_timestamp"
+    t.text "media_caption"
+    t.text "participant_hash"
+    t.integer "starred"
+    t.integer "quoted_row_id"
+    t.text "mentioned_jids"
+    t.text "multicast_id"
+    t.integer "edit_version"
+    t.text "media_enc_hash"
+    t.text "payment_transaction_id"
+    t.integer "forwarded"
+    t.integer "preview_type"
+    t.integer "send_count"
+  end
+
 
   create_table "messages_dehydrated_hsm", primary_key: "_id", force: :cascade do |t|
     t.integer "message_row_id"
@@ -659,11 +1048,21 @@ ActiveRecord::Schema.define(version: 0) do
     t.text "message_lg"
   end
 
-# Could not dump table "messages_fts" because of following StandardError
-#   Unknown type '' for column 'content'
+  # Could not dump table "messages_fts" because of following StandardError
+  #   Unknown type '' for column 'content'
+  #
+  # CREATE VIRTUAL TABLE messages_fts USING FTS3()
+  create_table "messages_fts", force: :cascade do |t|
+    t.text "content"
+  end
 
-# Could not dump table "messages_fts_content" because of following StandardError
-#   Unknown type '' for column 'c0content'
+
+  # Could not dump table "messages_fts_content" because of following StandardError
+  #   Unknown type '' for column 'c0content'
+  # CREATE TABLE 'messages_fts_content'(docid INTEGER PRIMARY KEY, 'c0content')
+  create_table "messages_fts_content", primary_key: "docid", force: :cascade do |t|
+    t.text "c0content"
+  end
 
   create_table "messages_fts_segdir", primary_key: ["level", "idx"], force: :cascade do |t|
     t.integer "level"
@@ -688,8 +1087,93 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "link_index"
   end
 
-# Could not dump table "messages_quotes" because of following StandardError
-#   Unknown type 'REAL' for column 'latitude'
+  # Could not dump table "messages_quotes" because of following StandardError
+  #   Unknown type 'REAL' for column 'latitude'
+  #
+  # CREATE TABLE messages_quotes (
+  #   _id INTEGER PRIMARY KEY AUTOINCREMENT,
+  #   key_remote_jid TEXT NOT NULL,
+  #   key_from_me INTEGER,
+  #   key_id TEXT NOT NULL,
+  #   status INTEGER,
+  #   needs_push INTEGER,
+  #   data TEXT,
+  #   timestamp INTEGER,
+  #   media_url TEXT,
+  #   media_mime_type TEXT,
+  #   media_wa_type TEXT,
+  #   media_size INTEGER,
+  #   media_name TEXT,
+  #   media_caption TEXT,
+  #   media_hash TEXT,
+  #   media_duration INTEGER,
+  #   origin INTEGER,
+  #   latitude REAL,
+  #   longitude REAL,
+  #   thumb_image TEXT,
+  #   remote_resource TEXT,
+  #   received_timestamp INTEGER,
+  #   send_timestamp INTEGER,
+  #   receipt_server_timestamp INTEGER,
+  #   receipt_device_timestamp INTEGER,
+  #   read_device_timestamp INTEGER,
+  #   played_device_timestamp INTEGER,
+  #   raw_data BLOB,
+  #   recipient_count INTEGER,
+  #   participant_hash TEXT,
+  #   starred INTEGER,
+  #   quoted_row_id INTEGER,
+  #   mentioned_jids TEXT,
+  #   multicast_id TEXT,
+  #   edit_version INTEGER,
+  #   media_enc_hash TEXT,
+  #   payment_transaction_id TEXT,
+  #   forwarded INTEGER,
+  #   preview_type INTEGER,
+  #   send_count INTEGER
+  # )
+  create_table "messages_quotes", primary_key: "_id", force: :cascade do |t|
+    t.text "key_remote_jid"
+    t.integer "key_from_me"
+    t.text "key_id"
+    t.integer "status"
+    t.integer "needs_push"
+    t.text "data"
+    t.integer "timestamp"
+    t.text "media_url"
+    t.text "media_mime_type"
+    t.text "media_wa_type"
+    t.integer "media_size"
+    t.text "media_name"
+    t.text "media_caption"
+    t.text "media_hash"
+    t.integer "media_duration"
+    t.integer "origin"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "thumb_image"
+    t.text "remote_resource"
+    t.integer "received_timestamp"
+    t.integer "send_timestamp"
+    t.integer "receipt_server_timestamp"
+    t.integer "receipt_device_timestamp"
+    t.integer "read_device_timestamp"
+    t.integer "played_device_timestamp"
+    t.binary "raw_data"
+    t.integer "recipient_count"
+    t.text "participant_hash"
+    t.integer "starred"
+    t.integer "quoted_row_id"
+    t.text "mentioned_jids"
+    t.text "multicast_id"
+    t.integer "edit_version"
+    t.text "media_enc_hash"
+    t.text "payment_transaction_id"
+    t.integer "forwarded"
+    t.integer "preview_type"
+    t.integer "send_count"
+  end
+
 
   create_table "messages_vcards", primary_key: "_id", force: :cascade do |t|
     t.integer "message_row_id"
@@ -734,11 +1218,110 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["transferred"], name: "mms_thumbnail_metadata_transferred_index"
   end
 
-# Could not dump table "pay_transaction" because of following StandardError
-#   Unknown type '' for column 'amount_1000'
+  # Could not dump table "pay_transaction" because of following StandardError
+  #   Unknown type '' for column 'amount_1000'
+  #
+  # CREATE TABLE pay_transaction (
+  #   _id INTEGER PRIMARY KEY AUTOINCREMENT,
+  #   message_row_id INTEGER,
+  #   remote_jid_row_id INTEGER,
+  #   key_id TEXT,
+  #   interop_id TEXT,
+  #   id TEXT,
+  #   timestamp INTEGER,
+  #   status INTEGER,
+  #   error_code TEXT,
+  #   sender_jid_row_id INTEGER,
+  #   receiver_jid_row_id INTEGER,
+  #   type INTEGER,
+  #   currency_code TEXT,
+  #   amount_1000,
+  #   credential_id TEXT,
+  #   methods TEXT,
+  #   bank_transaction_id TEXT,
+  #   metadata TEXT,
+  #   init_timestamp INTEGER,
+  #   request_key_id TEXT,
+  #   country TEXT,
+  #   version INTEGER,
+  #   future_data BLOB
+  # )
+  create_table "pay_transaction", primary_key: "_id", force: :cascade do |t|
+    t.integer "message_row_id"
+    t.integer "remote_jid_row_id"
+    t.text "key_id"
+    t.text "interop_id"
+    t.text "id"
+    t.integer "timestamp"
+    t.integer "status"
+    t.text "error_code"
+    t.integer "sender_jid_row_id"
+    t.integer "receiver_jid_row_id"
+    t.integer "type"
+    t.text "currency_code"
+    t.text "amount_1000"
+    t.text "credential_id"
+    t.text "methods"
+    t.text "bank_transaction_id"
+    t.text "metadata"
+    t.integer "init_timestamp"
+    t.text "request_key_id"
+    t.text "country"
+    t.integer "version"
+    t.binary "future_data"
+  end
 
-# Could not dump table "pay_transactions" because of following StandardError
-#   Unknown type '' for column 'amount_1000'
+
+  # Could not dump table "pay_transactions" because of following StandardError
+  #   Unknown type '' for column 'amount_1000'
+  #
+  # CREATE TABLE pay_transactions (
+  #   key_remote_jid TEXT,
+  #   key_from_me INTEGER,
+  #   key_id TEXT,
+  #   id TEXT,
+  #   timestamp INTEGER,
+  #   status INTEGER,
+  #   error_code TEXT,
+  #   sender TEXT,
+  #   receiver TEXT,
+  #   type INTEGER,
+  #   currency TEXT,
+  #   amount_1000,
+  #   credential_id TEXT,
+  #   methods TEXT,
+  #   bank_transaction_id TEXT,
+  #   metadata TEXT,
+  #   init_timestamp INTEGER,
+  #   request_key_id TEXT,
+  #   country TEXT,
+  #   version INTEGER,
+  #   future_data BLOB
+  # )
+  create_table "pay_transactions", force: :cascade do |t|
+    t.text "key_remote_jid"
+    t.integer "key_from_me"
+    t.text "key_id"
+    t.text "id"
+    t.integer "timestamp"
+    t.integer "status"
+    t.text "error_code"
+    t.text "sender"
+    t.text "receiver"
+    t.integer "type"
+    t.text "currency"
+    t.text "amount_1000"
+    t.text "credential_id"
+    t.text "methods"
+    t.text "bank_transaction_id"
+    t.text "metadata"
+    t.integer "init_timestamp"
+    t.text "request_key_id"
+    t.text "country"
+    t.integer "version"
+    t.binary "future_data"
+  end
+
 
   create_table "props", primary_key: "_id", force: :cascade do |t|
     t.text "key"
