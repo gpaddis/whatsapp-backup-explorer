@@ -1,63 +1,63 @@
-rails generate model CallLog jid_row:references from_me:integer call:references transaction:references timestamp:integer video_call:integer duration:integer call_result:integer bytes_transferred:integer group_jid_row:references is_joinable_group_call:integer call_creator_device_jid_row:references --no-migration
-rails generate model CallLogParticipantV2 call_log_row:references jid_row:references call_result:integer --no-migration
-rails generate model Chat jid_row:references hidden:integer subject:text created_timestamp:integer display_message_row:references last_message_row:references last_read_message_row:references last_read_receipt_sent_message_row:references last_important_message_row:references archived:integer sort_timestamp:integer mod_tag:integer gen:float spam_detection:integer unseen_earliest_message_received_time:integer unseen_message_count:integer unseen_missed_calls_count:integer unseen_row_count:integer plaintext_disabled:integer vcard_ui_dismissed:integer change_number_notified_message_row:references show_group_description:integer ephemeral_expiration:integer last_read_ephemeral_message_row:references ephemeral_setting_timestamp:integer --no-migration
-rails generate model ChatList key_remote_jid:text message_table:references subject:text creation:integer last_read_message_table:references last_read_receipt_sent_message_table:references archived:integer sort_timestamp:integer mod_tag:integer gen:float my_messages:integer plaintext_disabled:boolean last_message_table:references unseen_message_count:integer unseen_missed_calls_count:integer unseen_row_count:integer vcard_ui_dismissed:integer deleted_message:references deleted_starred_message:references deleted_message_categories:text change_number_notified_message:references last_important_message_table:references show_group_description:integer unseen_earliest_message_received_time:integer ephemeral_expiration:integer last_read_ephemeral_message_table:references ephemeral_setting_timestamp:integer --no-migration
-rails generate model Frequent jid:text type:integer message_count:integer --no-migration
-rails generate model GroupParticipantDevice group_participant_row:references device_jid_row:references sent_sender_key:integer --no-migration
-rails generate model GroupParticipantUser group_jid_row:references user_jid_row:references rank:integer pending:integer --no-migration
-rails generate model GroupParticipant gjid:text jid:text admin:integer pending:integer sent_sender_key:integer --no-migration
-rails generate model GroupParticipantsHistory timestamp:datetime gjid:text jid:text action:integer old_phash:text new_phash:text --no-migration
-rails generate model Jid user:text server:text agent:integer type:integer raw_string:text device:integer --no-migration
-rails generate model Keyword keyword:text --no-migration
-rails generate model Label label_name:text predefined:references color:references --no-migration
-rails generate model MediaHashThumbnail thumbnail:binary --no-migration
-rails generate model MediaRef path:text ref_count:integer --no-migration
-rails generate model MessageExternalAdContent title:text body:text media_type:integer thumbnail_url:text full_thumbnail:binary micro_thumbnail:binary media_url:text source_type:text source:references source_url:text --no-migration
-rails generate model MessageForwarded forward_score:integer --no-migration
-rails generate model MessageFtsv2 content:text fts_jid:text fts_namespace:text --no-migration
-rails generate model MessageFtsv2Content c0content:text c1fts_jid:text c2fts_namespace:text --no-migration
-rails generate model MessageFtsv2Docsize size:binary --no-migration
-rails generate model MessageFtsv2Segdir level:integer idx:integer start_block:integer leaves_end_block:integer end_block:integer root:binary --no-migration
-rails generate model MessageFtsv2Segment block:binary --no-migration
-rails generate model MessageFtsv2Stat value:binary --no-migration
-rails generate model MessageGroupInvite group_jid_row:references admin_jid_row:references group_name:text invite_code:text expiration:integer invite_time:integer expired:integer --no-migration
-rails generate model MessageLink chat_row:references message_row:references link_index:integer --no-migration
-rails generate model MessageLocation chat_row:references latitude:float longitude:float place_name:text place_address:text url:text live_location_share_duration:integer live_location_sequence_number:integer live_location_final_latitude:float live_location_final_longitude:float live_location_final_timestamp:integer map_download_status:integer --no-migration
-rails generate model MessageMedium chat_row:references autotransfer_retry_enabled:integer multicast:references media_job_uuid:text transferred:integer transcoded:integer file_path:text file_size:integer suspicious_content:integer trim_from:integer trim_to:integer face_x:integer face_y:integer media_key:binary media_key_timestamp:integer width:integer height:integer has_streaming_sidecar:integer gif_attribution:integer thumbnail_height_width_ratio:float direct_path:text first_scan_sidecar:binary first_scan_length:integer message_url:text mime_type:text file_length:integer media_name:text file_hash:text media_duration:integer page_count:integer enc_file_hash:text partial_media_hash:text partial_media_enc_hash:text is_animated_sticker:integer original_file_hash:text --no-migration
-rails generate model MessageMediaInteractiveAnnotation message_row:references location_latitude:float location_longitude:float location_name:text sort_order:integer --no-migration
-rails generate model MessageMediaInteractiveAnnotationVertex message_media_interactive_annotation_row:references x:float y:float sort_order:integer --no-migration
-rails generate model MessageMediaVcardCount message_row:references count:integer --no-migration
-rails generate model MessageMention message_row:references jid_row:references --no-migration
-rails generate model MessageOrder order:references thumbnail:binary order_title:text item_count:integer status:integer surface:integer message:text seller_jid:integer token:text --no-migration
-rails generate model MessageOrphanedEdit key:references from_me:integer chat_row:references sender_jid_row:references timestamp:integer message_type:integer revoked_key:references retry_count:integer --no-migration
-rails generate model MessageSendCount send_count:integer --no-migration
-rails generate model MessageStreamingSidecar sidecar:binary chunk_lengths:binary timestamp:integer --no-migration
-rails generate model MessageText description:text page_title:text url:text font_style:integer text_color:integer background_color:integer preview_type:integer --no-migration
-rails generate model MessageThumbnail thumbnail:binary timestamp:datetime key_remote_jid:text key_from_me:integer key:references --no-migration
-rails generate model MessageUiElement message_row:references element_type:integer element_content:text --no-migration
-rails generate model MessageUiElementsReply element_type:integer reply_values:text --no-migration
-rails generate model MessageVcard message_row:references vcard:text --no-migration
-rails generate model MessageVcardJid vcard_jid_row:references vcard_row:references message_row:references --no-migration
-rails generate model MessageViewOnceMedium state:integer --no-migration
-rails generate model Message key_remote_jid:text key_from_me:integer key:references status:integer needs_push:integer data:text timestamp:integer media_url:text media_mime_type:text media_wa_type:text media_size:integer media_name:text media_hash:text media_duration:integer origin:integer latitude:float longitude:float thumb_image:text remote_resource:text received_timestamp:integer send_timestamp:integer receipt_server_timestamp:integer receipt_device_timestamp:integer raw_data:binary recipient_count:integer read_device_timestamp:integer played_device_timestamp:integer media_caption:text participant_hash:text starred:integer quoted_row:references mentioned_jids:text multicast:references edit_version:integer media_enc_hash:text payment_transaction:references forwarded:integer preview_type:integer send_count:integer --no-migration
-rails generate model MessagesDehydratedHsm message_row:references message_elementname:text message_namespace:text message_lg:text --no-migration
-rails generate model MessagesFt content:text --no-migration
-rails generate model MessagesFtsContent c0content:text --no-migration
-rails generate model MessagesFtsSegdir level:integer idx:integer start_block:integer leaves_end_block:integer end_block:integer root:binary --no-migration
-rails generate model MessagesFtsSegment block:binary --no-migration
-rails generate model MessagesHydratedFourRowTemplate message_template:references --no-migration
-rails generate model MessagesLink key_remote_jid:text message_row:references link_index:integer --no-migration
-rails generate model MessagesQuote key_remote_jid:text key_from_me:integer key:references status:integer needs_push:integer data:text timestamp:integer media_url:text media_mime_type:text media_wa_type:text media_size:integer media_name:text media_caption:text media_hash:text media_duration:integer origin:integer latitude:float longitude:float thumb_image:text remote_resource:text received_timestamp:integer send_timestamp:integer receipt_server_timestamp:integer receipt_device_timestamp:integer read_device_timestamp:integer played_device_timestamp:integer raw_data:binary recipient_count:integer participant_hash:text starred:integer quoted_row:references mentioned_jids:text multicast:references edit_version:integer media_enc_hash:text payment_transaction:references forwarded:integer preview_type:integer send_count:integer --no-migration
-rails generate model MessagesVcard message_row:references sender_jid:text vcard:text chat_jid:text --no-migration
-rails generate model MessagesVcardsJid message_row:references vcard_jid:text vcard_row:references --no-migration
-rails generate model MissedCallLogParticipant call_logs_row:references jid:text call_result:integer --no-migration
-rails generate model MissedCallLog message_row:references timestamp:integer video_call:integer group_jid_row:references is_joinable_group_call:integer --no-migration
-rails generate model Prop key:text value:text --no-migration
-rails generate model ReceiptDevice message_row:references receipt_device_jid_row:references receipt_device_timestamp:integer --no-migration
-rails generate model ReceiptOrphaned chat_row:references from_me:integer key:references receipt_device_jid_row:references receipt_recipient_jid_row:references status:integer timestamp:integer --no-migration
-rails generate model ReceiptUser message_row:references receipt_user_jid_row:references receipt_timestamp:integer read_timestamp:integer played_timestamp:integer --no-migration
-rails generate model Receipt key_remote_jid:text key:references remote_resource:text receipt_device_timestamp:integer read_device_timestamp:integer played_device_timestamp:integer --no-migration
-rails generate model Status jid_row:references message_table:references last_read_message_table:references last_read_receipt_sent_message_table:references first_unread_message_table:references autodownload_limit_message_table:references timestamp:integer unseen_count:integer total_count:integer --no-migration
-rails generate model StatusList key_remote_jid:text message_table:references last_read_message_table:references last_read_receipt_sent_message_table:references timestamp:integer unseen_count:integer total_count:integer first_unread_message_table:references autodownload_limit_message_table:references --no-migration
-rails generate model UserDevice user_jid_row:references device_jid_row:references key_index:integer --no-migration
-rails generate model UserDeviceInfo raw:references timestamp:integer --no-migration
+rails generate model CallLog --no-migration
+rails generate model CallLogParticipantV2 --no-migration
+rails generate model Chat --no-migration
+rails generate model ChatList --no-migration
+rails generate model Frequent --no-migration
+rails generate model GroupParticipantDevice --no-migration
+rails generate model GroupParticipantUser --no-migration
+rails generate model GroupParticipant --no-migration
+rails generate model GroupParticipantsHistory --no-migration
+rails generate model Jid --no-migration
+rails generate model Keyword --no-migration
+rails generate model Label --no-migration
+rails generate model MediaHashThumbnail --no-migration
+rails generate model MediaRef --no-migration
+rails generate model MessageExternalAdContent --no-migration
+rails generate model MessageForwarded --no-migration
+rails generate model MessageFtsv2 --no-migration
+rails generate model MessageFtsv2Content --no-migration
+rails generate model MessageFtsv2Docsize --no-migration
+rails generate model MessageFtsv2Segdir --no-migration
+rails generate model MessageFtsv2Segment --no-migration
+rails generate model MessageFtsv2Stat --no-migration
+rails generate model MessageGroupInvite --no-migration
+rails generate model MessageLink --no-migration
+rails generate model MessageLocation --no-migration
+rails generate model MessageMedium --no-migration
+rails generate model MessageMediaInteractiveAnnotation --no-migration
+rails generate model MessageMediaInteractiveAnnotationVertex --no-migration
+rails generate model MessageMediaVcardCount --no-migration
+rails generate model MessageMention --no-migration
+rails generate model MessageOrder --no-migration
+rails generate model MessageOrphanedEdit --no-migration
+rails generate model MessageSendCount --no-migration
+rails generate model MessageStreamingSidecar --no-migration
+rails generate model MessageText --no-migration
+rails generate model MessageThumbnail --no-migration
+rails generate model MessageUiElement --no-migration
+rails generate model MessageUiElementsReply --no-migration
+rails generate model MessageVcard --no-migration
+rails generate model MessageVcardJid --no-migration
+rails generate model MessageViewOnceMedium --no-migration
+rails generate model Message --no-migration
+rails generate model MessagesDehydratedHsm --no-migration
+rails generate model MessagesFt --no-migration
+rails generate model MessagesFtsContent --no-migration
+rails generate model MessagesFtsSegdir --no-migration
+rails generate model MessagesFtsSegment --no-migration
+rails generate model MessagesHydratedFourRowTemplate --no-migration
+rails generate model MessagesLink --no-migration
+rails generate model MessagesQuote --no-migration
+rails generate model MessagesVcard --no-migration
+rails generate model MessagesVcardsJid --no-migration
+rails generate model MissedCallLogParticipant --no-migration
+rails generate model MissedCallLog --no-migration
+rails generate model Prop --no-migration
+rails generate model ReceiptDevice --no-migration
+rails generate model ReceiptOrphaned --no-migration
+rails generate model ReceiptUser --no-migration
+rails generate model Receipt --no-migration
+rails generate model Status --no-migration
+rails generate model StatusList --no-migration
+rails generate model UserDevice --no-migration
+rails generate model UserDeviceInfo --no-migration
