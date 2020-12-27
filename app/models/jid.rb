@@ -16,13 +16,23 @@
 #  jid_raw_string_index  (raw_string) UNIQUE
 #
 
-# A Jid is the unique identifier of a chat between two or more persons.
+# The jid table is a polymorphic collection of records connecting all objects in the whatsapp database.
+# A jid row might represent a user, a group, etc.
 class Jid < ApplicationRecord
   self.table_name = 'jid'
 
   # Avoid collisions with single-table inheritance mechanism.
   self.inheritance_column = nil
 
+  # TODO double check the type codes.
+  enum type: {
+    jid_user: 0,
+    jid_group: 1,
+    jid_temp: 2,
+    jid_broadcast: 3,
+    jid_myself: 11,
+    jid_unknown: 17
+  }
+
   has_many :messages, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
-  has_many :group_participants, foreign_key: 'gjid', primary_key: 'raw_string'
 end

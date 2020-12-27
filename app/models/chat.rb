@@ -34,5 +34,8 @@ class Chat < ApplicationRecord
 
   belongs_to :jid, foreign_key: 'jid_row_id'
   has_many :messages, through: :jid
-  has_many :group_participants, through: :jid #! TODO: TypeError (can't cast Hash)
+  has_many :group_participant_users, foreign_key: 'group_jid_row_id', primary_key: 'jid_row_id'
+  has_many :users, through: :group_participant_users
+
+  alias_attribute :group_owner, :jid
 end

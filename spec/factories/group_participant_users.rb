@@ -14,6 +14,9 @@
 #
 FactoryBot.define do
   factory :group_participant_user do
-    
+    group_jid_row_id { 1 }
+    user_jid_row_id { 2 }
+    pending { 0 }
+    rank { 0 }
   end
 end
