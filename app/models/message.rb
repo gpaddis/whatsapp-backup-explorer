@@ -53,4 +53,5 @@
 #  starred_index          (starred)
 #
 class Message < ApplicationRecord
+  belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
 end

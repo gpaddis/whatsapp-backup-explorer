@@ -31,4 +31,7 @@
 #
 class Chat < ApplicationRecord
   self.table_name = 'chat'
+
+  belongs_to :jid, foreign_key: 'jid_row_id'
+  has_many :messages, through: :jid
 end
