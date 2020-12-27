@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: props
+#
+#  key   :text
+#  value :text
+#  _id   :integer          primary key
+#
 require 'rails_helper'
 
 RSpec.describe Prop, type: :model do

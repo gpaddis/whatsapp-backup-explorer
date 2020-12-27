@@ -1,3 +1,9 @@
+# == Schema Information
+#
+# Table name: messages_fts
+#
+#  content :
+#
 require 'rails_helper'
 
 RSpec.describe MessagesFt, type: :model do

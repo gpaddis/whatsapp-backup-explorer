@@ -1,3 +1,10 @@
+# == Schema Information
+#
+# Table name: message_ftsv2_docsize
+#
+#  docid :integer          primary key
+#  size  :binary
+#
 require 'rails_helper'
 
 RSpec.describe MessageFtsv2Docsize, type: :model do
