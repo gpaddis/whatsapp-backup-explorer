@@ -1,0 +1,2 @@
+class GroupParticipantDevice < ApplicationRecord
+end

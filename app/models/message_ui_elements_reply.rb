@@ -1,0 +1,2 @@
+class MessageUiElementsReply < ApplicationRecord
+end

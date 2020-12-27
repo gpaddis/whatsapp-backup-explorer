@@ -1,0 +1,2 @@
+class MediaHashThumbnail < ApplicationRecord
+end

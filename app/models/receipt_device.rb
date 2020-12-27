@@ -1,0 +1,2 @@
+class ReceiptDevice < ApplicationRecord
+end

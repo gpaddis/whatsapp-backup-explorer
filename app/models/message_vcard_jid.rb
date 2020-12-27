@@ -1,0 +1,2 @@
+class MessageVcardJid < ApplicationRecord
+end

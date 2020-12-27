@@ -1,0 +1,2 @@
+class Jid < ApplicationRecord
+end

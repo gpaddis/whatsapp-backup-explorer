@@ -1,0 +1,2 @@
+class MessagesFt < ApplicationRecord
+end

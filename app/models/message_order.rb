@@ -1,0 +1,2 @@
+class MessageOrder < ApplicationRecord
+end

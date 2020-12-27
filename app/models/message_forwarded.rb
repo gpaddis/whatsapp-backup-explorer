@@ -1,0 +1,2 @@
+class MessageForwarded < ApplicationRecord
+end

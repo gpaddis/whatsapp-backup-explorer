@@ -1,0 +1,2 @@
+class MessageOrphanedEdit < ApplicationRecord
+end

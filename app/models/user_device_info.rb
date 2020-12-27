@@ -1,0 +1,2 @@
+class UserDeviceInfo < ApplicationRecord
+end

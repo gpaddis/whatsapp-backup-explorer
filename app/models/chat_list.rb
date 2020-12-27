@@ -1,0 +1,2 @@
+class ChatList < ApplicationRecord
+end

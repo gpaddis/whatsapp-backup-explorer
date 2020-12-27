@@ -1,0 +1,2 @@
+class MessageLocation < ApplicationRecord
+end

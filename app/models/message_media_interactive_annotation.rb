@@ -1,0 +1,2 @@
+class MessageMediaInteractiveAnnotation < ApplicationRecord
+end

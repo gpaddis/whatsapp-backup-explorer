@@ -1,0 +1,2 @@
+class MessagesVcard < ApplicationRecord
+end

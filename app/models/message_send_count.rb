@@ -1,0 +1,2 @@
+class MessageSendCount < ApplicationRecord
+end

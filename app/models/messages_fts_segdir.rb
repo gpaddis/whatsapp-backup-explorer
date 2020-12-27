@@ -1,0 +1,2 @@
+class MessagesFtsSegdir < ApplicationRecord
+end

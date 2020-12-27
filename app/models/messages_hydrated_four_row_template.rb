@@ -1,0 +1,2 @@
+class MessagesHydratedFourRowTemplate < ApplicationRecord
+end

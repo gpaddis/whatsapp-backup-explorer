@@ -1,0 +1,2 @@
+class MessageViewOnceMedium < ApplicationRecord
+end

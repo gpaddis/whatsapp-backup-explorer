@@ -1,0 +1,2 @@
+class MessageExternalAdContent < ApplicationRecord
+end

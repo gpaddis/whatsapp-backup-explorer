@@ -1,0 +1,2 @@
+class Frequent < ApplicationRecord
+end

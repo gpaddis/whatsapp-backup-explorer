@@ -1,0 +1,2 @@
+class MessageGroupInvite < ApplicationRecord
+end

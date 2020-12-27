@@ -1,0 +1,2 @@
+class MediaRef < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class MissedCallLogParticipant < ApplicationRecord
+end

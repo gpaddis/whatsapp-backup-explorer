@@ -1,0 +1,2 @@
+class MessageMediaInteractiveAnnotationVertex < ApplicationRecord
+end

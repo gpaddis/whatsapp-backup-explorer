@@ -1,0 +1,2 @@
+class MessageMedium < ApplicationRecord
+end

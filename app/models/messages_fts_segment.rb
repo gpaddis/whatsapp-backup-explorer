@@ -1,0 +1,2 @@
+class MessagesFtsSegment < ApplicationRecord
+end

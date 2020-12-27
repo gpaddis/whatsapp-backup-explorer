@@ -1,0 +1,2 @@
+class MessageStreamingSidecar < ApplicationRecord
+end

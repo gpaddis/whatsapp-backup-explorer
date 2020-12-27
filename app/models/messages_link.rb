@@ -1,0 +1,2 @@
+class MessagesLink < ApplicationRecord
+end

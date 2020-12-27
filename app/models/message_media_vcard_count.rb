@@ -1,0 +1,2 @@
+class MessageMediaVcardCount < ApplicationRecord
+end

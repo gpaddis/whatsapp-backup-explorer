@@ -1,0 +1,2 @@
+class MessagesQuote < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class GroupParticipantsHistory < ApplicationRecord
+end
