@@ -24,4 +24,5 @@ class Jid < ApplicationRecord
   self.inheritance_column = nil
 
   has_many :messages, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
+  has_many :group_participants, foreign_key: 'gjid', primary_key: 'raw_string'
 end

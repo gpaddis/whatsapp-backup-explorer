@@ -1298,7 +1298,7 @@ ActiveRecord::Schema.define(version: 0) do
   #   version INTEGER,
   #   future_data BLOB
   # )
-  create_table "pay_transactions", force: :cascade do |t|
+  create_table "pay_transactions", id: false, force: :cascade do |t|
     t.text "key_remote_jid"
     t.integer "key_from_me"
     t.text "key_id"
