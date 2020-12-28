@@ -20,7 +20,7 @@ module Whatsapp
         resource :messages do
           desc 'Get all messages in a chat.'
           get do
-            present Chat.find(params[:id]).messages, with: Whatsapp::Entities::Messages
+            present Chat.find(params[:id]).messages, with: Whatsapp::Entities::Message
           end
         end
       end

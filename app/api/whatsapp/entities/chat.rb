@@ -7,8 +7,8 @@ module Whatsapp
       expose :archived
       expose :created_timestamp
       expose :sort_timestamp
-      expose :jid, using: Whatsapp::Entities::Jid
-      expose :group_owner, using: Whatsapp::Entities::Users
+      expose :users, using: Whatsapp::Entities::Jid
+      expose :group_owner, using: Whatsapp::Entities::Jid
     end
   end
 end
