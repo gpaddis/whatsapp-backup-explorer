@@ -54,4 +54,5 @@
 #
 class Message < ApplicationRecord
   belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
+  has_many :messages_links, foreign_key: 'message_row_id'
 end
