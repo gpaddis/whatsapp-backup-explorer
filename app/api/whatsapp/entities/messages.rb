@@ -5,6 +5,7 @@ module Whatsapp
       expose :data
       expose :key_from_me
       expose :timestamp
+      expose :author, using: Whatsapp::Entities::Jid
     end
   end
 end
