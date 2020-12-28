@@ -31,6 +31,7 @@
 //   <app></app>
 // </div>
 
+window.axios = require('axios');
 
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'

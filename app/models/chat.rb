@@ -38,4 +38,6 @@ class Chat < ApplicationRecord
   has_many :users, through: :group_participant_users
 
   alias_attribute :group_owner, :jid
+
+  default_scope { includes(:jid).order(sort_timestamp: :desc) }
 end
