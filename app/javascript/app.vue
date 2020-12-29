@@ -1,52 +1,10 @@
 <template>
-  <!-- <div id="app" class="container-fluid app">
-    <div class="row app-one">
-      <div class="col-sm-4 side">
-        <div class="side-one">
-          <div class="row searchBox">
-            <div class="col-sm-12 searchBox-inner">
-              <div class="form-group has-feedback">
-                <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
-                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row sideBar">
-            <div class="row sideBar-body" v-for="chat in chats" :key="chat._id" @click="current_chat_id = chat._id">
-              <div class="col-sm-3 col-xs-3 sideBar-avatar">
-                <div class="avatar-icon">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                </div>
-              </div>
-              <div class="col-sm-9 col-xs-9 sideBar-main">
-                <div class="row">
-                  <div class="col-sm-8 col-xs-8 sideBar-name">
-                    <span class="name-meta">{{ chat.subject ? chat.subject : "+" + chat.user }}
-                  </span>
-                  </div>
-                  <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                    <span class="time-meta pull-right">{{ new Date(chat.sort_timestamp).toLocaleDateString("de-de") }}
-                  </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Chat :chat-id="current_chat_id" />
-    </div>
-  </div> -->
   <div id="app">
-    <div class="w-full h-32" style="background-color: #449388"></div>
-
-    <div class="container mx-auto" style="margin-top: -128px">
+    <div class="container mx-auto">
       <div class="py-6 h-screen">
         <div class="flex border border-grey rounded shadow-lg h-full">
           <!-- Left -->
-          <div class="w-1/3 border flex flex-col">
+          <div class="w-1/3 border flex flex-col min-w-min">
             <!-- Header -->
             <div
               class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center"
@@ -104,18 +62,18 @@
             </div>
 
             <!-- Search -->
-            <div class="py-2 px-2 bg-grey-lightest">
+            <div class="py-2 px-2">
               <input
                 type="text"
                 class="w-full px-2 py-2 text-sm"
-                placeholder="Search or start new chat"
+                placeholder="Search"
               />
             </div>
 
             <!-- Contacts -->
-            <div class="bg-grey-lighter flex-1 overflow-auto">
+            <div class="flex-1 overflow-auto">
               <div
-                class="bg-white px-3 flex items-center hover:bg-grey-lighter cursor-pointer"
+                class="bg-gray-50 px-3 flex items-center hover:bg-gray-200 cursor-pointer"
                 v-for="chat in chats"
                 :key="chat._id"
                 @click="current_chat_id = chat._id"
@@ -128,7 +86,7 @@
                 </div>
                 <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
                   <div class="flex items-bottom justify-between">
-                    <p class="text-grey-darkest">{{ chat.subject ? chat.subject : "+" + chat.user }}</p>
+                    <p class="text-grey-darkest">{{ chat.subject ? chat.subject : chat.group_owner.user }}</p>
                     <p class="text-xs text-grey-darkest">{{ new Date(chat.sort_timestamp).toLocaleDateString("de-de") }}</p>
                   </div>
                 </div>
@@ -138,6 +96,8 @@
           </div>
 
           <!-- Right -->
+          <!-- DEBUG -->
+          <!-- <Chat :chat-id="286" /> -->
           <Chat :chat-id="current_chat_id" />
         </div>
       </div>

@@ -4,9 +4,7 @@ module Whatsapp
       expose :_id
       expose :subject
       expose :sort_timestamp
-      expose :user do |chat|
-        chat.jid.user
-      end
+      expose :group_owner, using: Whatsapp::Entities::Jid
     end
   end
 end
