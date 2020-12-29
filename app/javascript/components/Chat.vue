@@ -6,8 +6,8 @@
           <img src="https://bootdey.com/img/Content/avatar/avatar6.png">
         </div>
       </div>
-      <div class="col-sm-8 col-xs-7 heading-name">
-        <a class="heading-name-meta">Chat: {{ chatId }}</a>
+      <div v-if="chatId" class="col-sm-8 col-xs-7 heading-name">
+        <a class="heading-name-meta">{{ heading }}</a>
       </div>
     </div>
 
@@ -30,13 +30,15 @@ export default {
 
   data() {
     return {
-      messages: []
+      messages: [],
+      details: {}
     }
   },
 
   watch: {
     chatId(newChatId) {
       this.loadMessages(newChatId)
+      this.loadDetails(newChatId)
     }
   },
 
@@ -46,11 +48,25 @@ export default {
     }
   },
 
+  computed: {
+    heading() {
+      if (this.details.hasOwnProperty('group_owner')) {
+        return this.details.subject ?? `+${this.details.group_owner.user}`
+      }
+    }
+  },
+
   methods: {
     loadMessages(chatId) {
       axios
         .get(`http://localhost:3000/api/chats/${chatId}/messages`)
         .then((response) => (this.messages = response.data));
+    },
+
+    loadDetails(chatId) {
+      axios
+        .get(`http://localhost:3000/api/chats/${chatId}`)
+        .then((response) => (this.details = response.data));
     }
   },
 };

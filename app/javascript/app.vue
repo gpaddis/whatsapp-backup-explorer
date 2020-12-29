@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container app">
+  <div id="app" class="container-fluid app">
     <div class="row app-one">
       <div class="col-sm-4 side">
         <div class="side-one">
@@ -26,7 +26,7 @@
                   </span>
                   </div>
                   <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                    <span class="time-meta pull-right">18:18
+                    <span class="time-meta pull-right">{{ new Date(chat.sort_timestamp).toLocaleDateString("de-de") }}
                   </span>
                   </div>
                 </div>
