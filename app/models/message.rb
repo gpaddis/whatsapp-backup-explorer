@@ -59,4 +59,9 @@ class Message < ApplicationRecord
   has_one :message_thumbnail, foreign_key: 'key_id', primary_key: 'key_id'
 
   default_scope { includes(:author, :message_thumbnail) }
+
+  enum status: {
+    'normal': 0,
+    'service': 6
+  }
 end

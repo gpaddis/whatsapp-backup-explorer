@@ -4,6 +4,7 @@ module Whatsapp
       expose :_id
       expose :data
       expose :key_from_me
+      expose :status
       expose :timestamp
       expose :media_url
       expose :media_mime_type
