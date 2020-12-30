@@ -1,15 +1,10 @@
 <template>
   <div class="w-2/3 border flex flex-col">
     <!-- Header -->
-    <div
-      class="py-2 px-3 flex flex-row justify-between items-center"
-    >
-      <div class="flex items-center">
+    <div class="py-2 px-3 flex flex-row justify-between items-center">
+      <div class="flex items-center" @click="toggleInfo()">
         <div>
-          <img
-            class="w-10 h-10 rounded-full"
-            src="/images/whatsapp-user.png"
-          />
+          <img class="w-10 h-10 rounded-full" src="/images/whatsapp-user.png" />
         </div>
         <div class="ml-4">
           <p class="text-black">{{ heading }}</p>
@@ -52,16 +47,25 @@
     </div>
 
     <!-- Messages -->
-    <div class="flex-1 overflow-auto" style="background-color: #dad3cc">
+    <div
+      v-if="view == 'conversation'"
+      class="flex-1 overflow-auto"
+      style="background-color: #dad3cc"
+    >
       <div v-for="(grouped_messages, date) in messages" :key="date">
         <div class="py-2 px-3">
           <div class="flex justify-center mb-2">
-            <div class="rounded py-2 px-4 shadow-md" style="background-color: #ddecf2">
-              <p class="text-sm uppercase">{{ new Date(date).toLocaleDateString('de-de') }}</p>
+            <div
+              class="rounded py-2 px-4 shadow-md"
+              style="background-color: #ddecf2"
+            >
+              <p class="text-sm uppercase">
+                {{ new Date(date).toLocaleDateString("de-de") }}
+              </p>
             </div>
           </div>
 
-          <Message
+          <message
             v-for="message in grouped_messages"
             :key="message._id"
             :message="message"
@@ -69,20 +73,25 @@
         </div>
       </div>
     </div>
+
+    <!-- Information -->
+    <chat-info v-else-if="view == 'info'" :data="details" />
   </div>
 </template>
 
 <script>
+import ChatInfo from './chat/Info.vue';
 import Message from "./Message.vue";
 
 export default {
-  components: { Message },
+  components: { Message, ChatInfo },
   props: ["chatId"],
 
   data() {
     return {
       messages: [],
       details: {},
+      view: "conversation",
     };
   },
 
@@ -124,14 +133,16 @@ export default {
 
     groupByDate(messages) {
       return messages.reduce((res, message) => {
-        let messageDate = new Date(message.timestamp).toISOString().substring(0, 10);
+        let messageDate = new Date(message.timestamp)
+          .toISOString()
+          .substring(0, 10);
         if (!res[messageDate]) {
           res[messageDate] = [];
         }
         res[messageDate].push(message);
 
         return res;
-      }, {})
+      }, {});
     },
 
     loadDetails(chatId) {
@@ -139,6 +150,16 @@ export default {
         .get(`http://localhost:3000/api/chats/${chatId}`)
         .then((response) => (this.details = response.data));
     },
+
+    toggleInfo() {
+      if (this.view == 'info') {
+        return this.view = 'conversation';
+      }
+
+      if (this.view == 'conversation') {
+        return this.view = 'info';
+      }
+    }
   },
 };
 </script>

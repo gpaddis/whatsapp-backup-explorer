@@ -5,6 +5,9 @@ module Whatsapp
       expose :archived
       expose :created_timestamp
       expose :users, using: Whatsapp::Entities::Jid
+      expose :messages_count do |chat|
+        chat.messages.size
+      end
     end
   end
 end
