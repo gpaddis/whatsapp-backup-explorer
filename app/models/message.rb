@@ -56,6 +56,7 @@ class Message < ApplicationRecord
   belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
   belongs_to :author, class_name: 'Jid', foreign_key: 'remote_resource', primary_key: 'raw_string'
   has_many :messages_links, foreign_key: 'message_row_id'
+  has_one :message_thumbnail, foreign_key: 'key_id', primary_key: 'key_id'
 
-  default_scope { includes(:author) }
+  default_scope { includes(:author, :message_thumbnail) }
 end

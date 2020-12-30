@@ -12,7 +12,7 @@
               <div>
                 <img
                   class="w-10 h-10 rounded-full"
-                  src="http://andressantibanez.com/res/avatar.png"
+                  src="/images/whatsapp-user.png"
                 />
               </div>
 
@@ -81,7 +81,7 @@
                 <div>
                   <img
                     class="h-12 w-12 rounded-full"
-                    src="https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTIyMTE4MTU5/arnold-schwarzenegger-9476355-1-402.jpg"
+                    src="/images/whatsapp-user.png"
                   />
                 </div>
                 <div class="ml-4 flex-1 border-b border-grey-lighter py-4">

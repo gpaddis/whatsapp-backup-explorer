@@ -13,4 +13,5 @@
 #  messages_thumbnail_key_index  (key_remote_jid,key_from_me,key_id) UNIQUE
 #
 class MessageThumbnail < ApplicationRecord
+  has_one :message, foreign_key: 'key_id', primary_key: 'key_id'
 end

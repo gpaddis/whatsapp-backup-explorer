@@ -8,7 +8,7 @@
         <div>
           <img
             class="w-10 h-10 rounded-full"
-            src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg"
+            src="/images/whatsapp-user.png"
           />
         </div>
         <div class="ml-4">

@@ -10,11 +10,14 @@ module Whatsapp
       expose :media_name
       expose :media_duration
       expose :media_caption
-      expose :thumb_image_base64 do |message|
-        Base64.encode64 message.thumb_image if message.thumb_image.present?
+      expose :message_thumbnail_base64 do |m|
+        Base64.encode64(m.message_thumbnail&.thumbnail) if m.media_mime_type&.include?('image') && m.message_thumbnail&.thumbnail
       end
-      expose :raw_data_base64 do |message|
-        Base64.encode64 message.raw_data if message.raw_data.present?
+      expose :thumb_image_base64 do |m|
+        Base64.encode64 m.thumb_image if m.thumb_image.present?
+      end
+      expose :raw_data_base64 do |m|
+        Base64.encode64 m.raw_data if m.raw_data.present?
       end
       expose :author, using: Whatsapp::Entities::Jid
     end
