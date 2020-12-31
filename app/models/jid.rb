@@ -24,12 +24,12 @@ class Jid < ApplicationRecord
   # Avoid collisions with single-table inheritance mechanism.
   self.inheritance_column = nil
 
-  # TODO add further type codes.
   enum type: {
     jid_user: 0,
     jid_group: 1,
     jid_temp: 2,
     jid_broadcast: 3,
+    jid_status: 5,
     jid_myself: 11,
     jid_device: 17
   }
