@@ -31,7 +31,22 @@ export default {
       let body = "";
       switch(this.message.status) {
         case 'service':
-          body = 'TODO: check out how it is possible to tell if created / joined / left.'
+          if (this.message.author && !this.message.data) {
+            // Service message when somebody adds you to a chat.
+            body = `${this.message.author.user} added you to the group.`
+            // TODO: if this is not the group creator, then it is a "left the chat" or "removed you" message.
+            // TODO: what about "removed someone"?
+          }
+
+          if (this.message.author && this.message.data) {
+            if (this.isNumeric(this.message.data)) {
+              // Initial message showing who created the group.
+              body = `${this.message.author.user} added +${this.message.data} to the group.`
+            } else {
+              // Initial message showing who created the group.
+              body = `${this.message.author.user} created the group "${this.message.data}"`
+            }
+          }
           break;
         default:
           body = this.message.data ?? this.message.media_caption;
@@ -41,6 +56,12 @@ export default {
       return body;
     }
   },
+
+  methods: {
+    isNumeric(string) {
+      return !isNaN(parseFloat(string));
+    }
+  }
 };
 </script>
 

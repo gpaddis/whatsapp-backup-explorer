@@ -23,6 +23,11 @@ The `jid` table is the connecting glue between all other objects in the database
 - **raw_string**: another unique identifier made with phone number + server, sometimes used as foreign key by other objects.
 - **device**: either NULL or 0 in the database I examined. The field was probably added with a later migration and it is not yet being used.
 
+Check out https://github.com/sigalor/whatsapp-web-reveng#chat-identification--jid.
+
 ### Message
 #### Thumbnail
 Newer messages rely on the table `message_thumbnails` to store low-resolution pictures in a BLOB field. Older messages used to store the picture in the `raw_data` field of the `messages` table.
+
+## Legal
+This code is in no way affiliated with, authorized, maintained, sponsored or endorsed by WhatsApp or any of its affiliates or subsidiaries. This is an independent and unofficial software. Use at your own risk.
