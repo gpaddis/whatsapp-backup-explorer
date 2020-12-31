@@ -26,6 +26,7 @@ export default {
       return new Date(this.message.timestamp).toLocaleTimeString("de-de").substring(0, 5);
     },
 
+    // Get the message body according to the message type.
     body() {
       let body = "";
       switch(this.message.status) {
@@ -33,7 +34,7 @@ export default {
           body = 'TODO: check out how it is possible to tell if created / joined / left.'
           break;
         default:
-          body = this.message.data;
+          body = this.message.data ?? this.message.media_caption;
           break;
       }
 
