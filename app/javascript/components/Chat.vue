@@ -1,7 +1,7 @@
 <template>
   <div class="w-2/3 border flex flex-col">
     <!-- Header -->
-    <div class="py-2 px-3 flex flex-row justify-between items-center">
+    <div v-if="heading" class="py-2 px-3 flex flex-row justify-between items-center">
       <div class="flex items-center" @click="toggleInfo()">
         <div>
           <img class="w-10 h-10 rounded-full" src="/images/whatsapp-user.png" />
@@ -98,12 +98,14 @@ export default {
   },
 
   methods: {
+    // Load all messages for the current chat.
     loadMessages(chatId) {
       axios
         .get(`http://localhost:3000/api/chats/${chatId}/messages`)
         .then((response) => (this.messages = this.groupByDate(response.data)));
     },
 
+    // Group all messages by date in format YYYY-MM-DD.
     groupByDate(messages) {
       return messages.reduce((res, message) => {
         let messageDate = new Date(message.timestamp)
@@ -118,12 +120,14 @@ export default {
       }, {});
     },
 
+    // Load the chat details.
     loadDetails(chatId) {
       axios
         .get(`http://localhost:3000/api/chats/${chatId}`)
         .then((response) => (this.details = response.data));
     },
 
+    // Toggle the info overlay for the current chat.
     toggleInfo() {
       if (this.view == 'info') {
         return this.view = 'conversation';
