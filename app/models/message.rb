@@ -72,6 +72,8 @@ class Message < ApplicationRecord
     'status_13': 13
   }
 
+  # This enum does not seem to be actively used for media
+  # identification. Better rely on media_mime_type for that.
   enum media_wa_type: {
     'text': 0,
     'image': 1,
@@ -87,19 +89,32 @@ class Message < ApplicationRecord
     'image/webp': 20
   }
 
-  # Return the message kind according to its properties.
+  # Return the action for a service message according to its properties.
   #
   # @return [Symbol]
-  def kind
-    return :service_group_name_changed if data.present? && author.present?
-    if author.present? && thumb_image_phone_number
-      return media_duration.zero? ? :service_kicked_from_group : :service_added_to_group
-    end
+  def service_action
+    # TODO: return media_wa_type if status is normal / default
+    return status unless status == 'service'
 
-    :service_default
+    return :default unless author.present?
+    return :changed_group_picture if media_size == 6
+
+    if thumb_image_phone_number
+      return :added_to_group if media_duration.positive?
+      return :added_admin if media_size == 15
+      # TODO: in some cases, 12 means "added_to_group". Find a pattern.
+      return :kicked_from_group if media_size == 12 || media_size == 14
+    end
+    return :group_name_changed if data.present?
   end
 
+  # The target phone number of a service action is in a binary Java ArrayList
+  # stored in the field thumb_image as a blob.
+  #
+  # @return [String|nil] the phone number
   def thumb_image_phone_number
+    return nil unless thumb_image
+
     thumb_image.match(/(\d{6,})@/)&.captures&.first
   end
 end

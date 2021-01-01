@@ -5,9 +5,14 @@ module Whatsapp
       expose :data
       expose :key_from_me
       expose :status
+      expose :service_action, if: lambda { |m| m.status == 'service'}
+      expose :thumb_image_phone_number,
+             if: lambda { |m| m.service_action.present? },
+             as: :target_phone_number
       expose :timestamp
       expose :media_url
       expose :media_mime_type
+      expose :media_wa_type
       expose :media_name
       expose :media_duration
       expose :media_caption

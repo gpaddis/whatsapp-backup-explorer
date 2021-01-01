@@ -56,7 +56,7 @@ require 'rails_helper'
 
 RSpec.describe Message, type: :model do
   describe '#kind' do
-    subject { message.kind }
+    subject { message.service_action }
 
     context 'with a service message' do
       let(:message) do
@@ -65,6 +65,7 @@ RSpec.describe Message, type: :model do
           status: 'service',
           data: data,
           author: author,
+          media_size: media_size,
           thumb_image: thumb_image,
           media_duration: media_duration
         )
@@ -72,33 +73,51 @@ RSpec.describe Message, type: :model do
       let(:thumb_image) { nil }
       let(:data) { nil }
       let(:author) { nil }
+      let(:media_size) { 0 }
       let(:media_duration) { 0 }
 
       context 'when data and remote resource are nil' do
-        it { is_expected.to eq :service_default }
+        it { is_expected.to eq :default }
       end
 
       context 'when data and author are present' do
         let(:data) { 'Group name' }
         let(:author) { create(:jid) }
 
-        it { is_expected.to eq :service_group_name_changed }
+        it { is_expected.to eq :group_name_changed }
       end
 
       context 'when author and a phone number in the binary string are present' do
+        let(:data) { Time.now.to_i }
         let(:author) { create(:jid) }
         let(:thumb_image) { '\xAC\xED\x00\x05sr\x00\x13java.util.ArrayListx\x81\xD2\x1D\x99\xC7a\x9D\x03\x00\x01I\x00\x04sizexp\x00\x00\x00\x01w\x04\x00\x00\x00\x01t\x00\x1C49123456789@s.whatsapp.netx' }
 
         context 'when media_duration == 1' do
           let(:media_duration) { 1 }
 
-          it { is_expected.to eq :service_added_to_group }
+          it { is_expected.to eq :added_to_group }
         end
 
         context 'when media_duration == 0' do
           let(:media_duration) { 0 }
 
-          it { is_expected.to eq :service_kicked_from_group }
+          context 'when media_size == 12' do
+            let(:media_size) { 12 }
+
+            it { is_expected.to eq :kicked_from_group }
+          end
+
+          context 'when media_size == 15' do
+            let(:media_size) { 15 }
+
+            it { is_expected.to eq :added_admin }
+          end
+
+          context 'when media_size == 6' do
+            let(:media_size) { 6 }
+
+            it { is_expected.to eq :changed_group_picture }
+          end
         end
       end
     end

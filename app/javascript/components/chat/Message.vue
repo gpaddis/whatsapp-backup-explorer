@@ -26,34 +26,8 @@ export default {
       return new Date(this.message.timestamp).toLocaleTimeString("de-de").substring(0, 5);
     },
 
-    // Get the message body according to the message type.
     body() {
-      let body = "";
-      switch(this.message.status) {
-        case 'service':
-          if (this.message.author && !this.message.data) {
-            // Service message when somebody adds you to a chat.
-            body = `${this.message.author.user} added you to the group.`
-            // TODO: if this is not the group creator, then it is a "left the chat" or "removed you" message.
-            // TODO: what about "removed someone"?
-          }
-
-          if (this.message.author && this.message.data) {
-            if (this.isNumeric(this.message.data)) {
-              // Initial message showing who created the group.
-              body = `${this.message.author.user} added +${this.message.data} to the group.`
-            } else {
-              // Group name changed.
-              body = `${this.message.author.user} renamed the group: "${this.message.data}"`
-            }
-          }
-          break;
-        default:
-          body = this.message.data ?? this.message.media_caption;
-          break;
-      }
-
-      return body;
+      return this.message.data ?? this.message.media_caption;
     }
   },
 
