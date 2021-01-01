@@ -14,13 +14,13 @@ TODO: where to put database / files?
 ## Whatsapp Entities
 
 ### Jid
-The `jid` table is the connecting glue between all other objects in the database, so it is important to get it right. With just a couple of fields, the jid is referenced by almost any other object:
+The `jid` table is the connecting glue between all other objects in the database. Jid records are referenced by almost any other object:
 - **_id**: the primary key, often referenced by the other objects.
-- **user**: often a phone number, sometimes a phone number + id in the case of groups (the phone number is that of the user who created the group)
+- **user**: mostly a phone number, a [phone number]-[timestamp of group creation] for groups (the phone number is that of the user who created the group)
 - **server**: I could find 5 different values for the records: status_me, s.whatsapp.net, broadcast, g.us, temp. Most of the jids are either "s.whatsapp.net" or "g.us", all other server values are service messages.
 - **agent**: the value does not seem the be actively used at present.
 - **type**: either 0, 1, 2, 3, 5, 11, or 17. For a value mapping, check out [the enum](./app/models/jid.rb).
-- **raw_string**: another unique identifier made with phone number + server, sometimes used as foreign key by other objects.
+- **raw_string**: another unique identifier made with [phone number]@[server], sometimes used as foreign key by other objects.
 - **device**: either NULL or 0 in the database I examined. The field was probably added with a later migration and it is not yet being used.
 
 Check out https://github.com/sigalor/whatsapp-web-reveng#chat-identification--jid.

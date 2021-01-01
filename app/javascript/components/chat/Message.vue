@@ -43,8 +43,8 @@ export default {
               // Initial message showing who created the group.
               body = `${this.message.author.user} added +${this.message.data} to the group.`
             } else {
-              // Initial message showing who created the group.
-              body = `${this.message.author.user} created the group "${this.message.data}"`
+              // Group name changed.
+              body = `${this.message.author.user} renamed the group: "${this.message.data}"`
             }
           }
           break;

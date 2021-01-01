@@ -62,6 +62,28 @@ class Message < ApplicationRecord
 
   enum status: {
     'normal': 0,
-    'service': 6
+    'status_4': 4,
+    'status_5': 5,
+    'service': 6,
+    'status_8': 8,
+    'status_9': 9,
+    'status_10': 10,
+    'status_12': 12,
+    'status_13': 13
+  }
+
+  enum media_wa_type: {
+    'text': 0,
+    'image': 1,
+    'audio': 2,
+    'video': 3,
+    'media_wa_type_4': 4,
+    'media_wa_type_5': 5,
+    'document': 9,
+    'media_wa_type_10': 10,
+    'media_wa_type_11': 11,
+    'video/mp4': 13,
+    'media_wa_type_16': 16,
+    'image/webp': 20
   }
 end
