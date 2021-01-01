@@ -53,8 +53,8 @@
 #  starred_index          (starred)
 #
 class Message < ApplicationRecord
-  belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string'
-  belongs_to :author, class_name: 'Jid', foreign_key: 'remote_resource', primary_key: 'raw_string'
+  belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string', optional: true
+  belongs_to :author, class_name: 'Jid', foreign_key: 'remote_resource', primary_key: 'raw_string', optional: true
   has_many :messages_links, foreign_key: 'message_row_id'
   has_one :message_thumbnail, foreign_key: 'key_id', primary_key: 'key_id'
 
@@ -86,4 +86,20 @@ class Message < ApplicationRecord
     'media_wa_type_16': 16,
     'image/webp': 20
   }
+
+  # Return the message kind according to its properties.
+  #
+  # @return [Symbol]
+  def kind
+    return :service_group_name_changed if data.present? && author.present?
+    if author.present? && thumb_image_phone_number
+      return media_duration.zero? ? :service_kicked_from_group : :service_added_to_group
+    end
+
+    :service_default
+  end
+
+  def thumb_image_phone_number
+    thumb_image.match(/(\d{6,})@/)&.captures&.first
+  end
 end

@@ -55,5 +55,65 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#kind' do
+    subject { message.kind }
+
+    context 'with a service message' do
+      let(:message) do
+        create(
+          :message,
+          status: 'service',
+          data: data,
+          author: author,
+          thumb_image: thumb_image,
+          media_duration: media_duration
+        )
+      end
+      let(:thumb_image) { nil }
+      let(:data) { nil }
+      let(:author) { nil }
+      let(:media_duration) { 0 }
+
+      context 'when data and remote resource are nil' do
+        it { is_expected.to eq :service_default }
+      end
+
+      context 'when data and author are present' do
+        let(:data) { 'Group name' }
+        let(:author) { create(:jid) }
+
+        it { is_expected.to eq :service_group_name_changed }
+      end
+
+      context 'when author and a phone number in the binary string are present' do
+        let(:author) { create(:jid) }
+        let(:thumb_image) { '\xAC\xED\x00\x05sr\x00\x13java.util.ArrayListx\x81\xD2\x1D\x99\xC7a\x9D\x03\x00\x01I\x00\x04sizexp\x00\x00\x00\x01w\x04\x00\x00\x00\x01t\x00\x1C49123456789@s.whatsapp.netx' }
+
+        context 'when media_duration == 1' do
+          let(:media_duration) { 1 }
+
+          it { is_expected.to eq :service_added_to_group }
+        end
+
+        context 'when media_duration == 0' do
+          let(:media_duration) { 0 }
+
+          it { is_expected.to eq :service_kicked_from_group }
+        end
+      end
+    end
+  end
+
+  describe '#thumb_image_phone_number' do
+    subject { message.thumb_image_phone_number }
+
+    let(:message) { build_stubbed(:message, thumb_image: binary_string) }
+
+    context 'with a binary blob including a phone number' do
+      let(:binary_string) { '\xAC\xED\x00\x05sr\x00\x13java.util.ArrayListx\x81\xD2\x1D\x99\xC7a\x9D\x03\x00\x01I\x00\x04sizexp\x00\x00\x00\x01w\x04\x00\x00\x00\x01t\x00\x1C' + phone_number + "@s.whatsapp.netx" }
+      let(:phone_number) { '4916721234567' }
+
+      it { is_expected.to eq phone_number }
+    end
+  end
 end

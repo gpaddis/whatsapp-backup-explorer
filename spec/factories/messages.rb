@@ -54,6 +54,44 @@
 #
 FactoryBot.define do
   factory :message do
-    
+    key_remote_jid { create(:jid) }
+    key_from_me { 1 }
+    key_id { Faker::String.random(length: 32) }
+    status { 'normal' }
+    needs_push { 0 }
+    data { nil }
+    timestamp { Time.now.to_i }
+    media_url { nil }
+    media_mime_type { nil }
+    media_wa_type { nil }
+    media_size { 19 }
+    media_name { nil }
+    media_hash { nil }
+    media_duration { 0 }
+    origin { 0 }
+    latitude { 0.0 }
+    longitude { 0.0 }
+    thumb_image { nil }
+    author { nil }
+    received_timestamp { Time.now.to_i }
+    send_timestamp { -1 }
+    receipt_server_timestamp { -1 }
+    receipt_device_timestamp { -1 }
+    raw_data { nil }
+    recipient_count { 17 }
+    read_device_timestamp { nil }
+    played_device_timestamp { nil }
+    media_caption { nil }
+    participant_hash { "1:#{Faker::String.random(length: 8)}" }
+    starred { nil }
+    quoted_row_id { 0 }
+    mentioned_jids { nil }
+    multicast_id { nil }
+    edit_version { 0 }
+    media_enc_hash { nil }
+    payment_transaction_id { nil }
+    forwarded { 0 }
+    preview_type { 0 }
+    send_count { nil }
   end
 end
