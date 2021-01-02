@@ -16,6 +16,7 @@ module Whatsapp
       expose :media_name
       expose :media_duration
       expose :media_caption
+      expose :media_file_path
       expose :message_thumbnail_base64 do |m|
         if m.media_mime_type&.include?('image')
           if m.message_thumbnail&.thumbnail
