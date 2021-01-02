@@ -57,7 +57,7 @@ FactoryBot.define do
     key_remote_jid { create(:jid) }
     key_from_me { 1 }
     key_id { Faker::String.random(length: 32) }
-    status { 'normal' }
+    status { 'default' }
     needs_push { 0 }
     data { nil }
     timestamp { Time.now.to_i }

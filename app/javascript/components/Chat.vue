@@ -1,8 +1,11 @@
 <template>
   <div class="w-2/3 border flex flex-col">
     <!-- Header -->
-    <div v-if="heading" class="py-2 px-3 flex flex-row justify-between items-center">
-      <div class="flex items-center" @click="toggleInfo()">
+    <div
+      v-if="heading"
+      class="py-2 px-3 flex flex-row justify-between items-center"
+    >
+      <div class="flex items-center">
         <div>
           <img class="w-10 h-10 rounded-full" src="/images/whatsapp-user.png" />
         </div>
@@ -29,7 +32,8 @@
             ></path>
           </svg>
         </div>
-        <div class="ml-6">
+
+        <div class="ml-6 cursor-pointer" @click="toggleInfo()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -38,9 +42,9 @@
           >
             <path
               fill="#263238"
-              fill-opacity=".6"
-              d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"
-            ></path>
+              fill-opacity=".5"
+              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+            />
           </svg>
         </div>
       </div>
@@ -53,8 +57,8 @@
 </template>
 
 <script>
-import ChatInfo from './chat/Info.vue';
-import Conversation from './Conversation.vue';
+import ChatInfo from "./chat/Info.vue";
+import Conversation from "./Conversation.vue";
 
 export default {
   components: { ChatInfo, Conversation },
@@ -129,14 +133,14 @@ export default {
 
     // Toggle the info overlay for the current chat.
     toggleInfo() {
-      if (this.view == 'info') {
-        return this.view = 'conversation';
+      if (this.view == "info") {
+        return (this.view = "conversation");
       }
 
-      if (this.view == 'conversation') {
-        return this.view = 'info';
+      if (this.view == "conversation") {
+        return (this.view = "info");
       }
-    }
+    },
   },
 };
 </script>

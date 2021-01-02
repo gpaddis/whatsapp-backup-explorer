@@ -52,6 +52,10 @@
 #  messages_key_index     (key_remote_jid,key_from_me,key_id) UNIQUE
 #  starred_index          (starred)
 #
+
+# A message is generally a piece of conversation sent by the user. However, in a group context
+# it can also be a more generic "service" notification, e.g. when someone changes the group name.
+# A standard message belongs to an author who sent it (internally references as remote_resource).
 class Message < ApplicationRecord
   belongs_to :jid, foreign_key: 'key_remote_jid', primary_key: 'raw_string', optional: true
   belongs_to :author, class_name: 'Jid', foreign_key: 'remote_resource', primary_key: 'raw_string', optional: true
@@ -60,8 +64,9 @@ class Message < ApplicationRecord
 
   default_scope { includes(:author, :message_thumbnail) }
 
+  # For now, only 'default' and 'service' are relevant.
   enum status: {
-    'normal': 0,
+    'default': 0,
     'status_4': 4,
     'status_5': 5,
     'service': 6,
@@ -91,10 +96,9 @@ class Message < ApplicationRecord
 
   # Return the action for a service message according to its properties.
   #
-  # @return [Symbol]
+  # @return [Symbol|nil]
   def service_action
-    # TODO: return media_wa_type if status is normal / default
-    return status unless status == 'service'
+    return unless status == 'service'
 
     return :default unless author.present?
     return :changed_group_picture if media_size == 6
