@@ -104,9 +104,12 @@ export default {
   methods: {
     // Load all messages for the current chat.
     loadMessages(chatId) {
+      this.messages = [];
+      // TODO: this.loading = true;
       axios
         .get(`http://localhost:3000/api/chats/${chatId}/messages`)
         .then((response) => (this.messages = this.groupByDate(response.data)));
+      // TODO: this.loading = false;
     },
 
     // Group all messages by date in format YYYY-MM-DD.
