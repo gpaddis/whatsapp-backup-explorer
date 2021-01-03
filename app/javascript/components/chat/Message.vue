@@ -8,12 +8,19 @@
       >
         <p v-if="message.author" class="text-xs">{{ message.author.user }}</p>
         <!-- Pictures -->
-        <div v-if="message.media_mime_type == 'image/jpeg'">
+        <div v-if="media_type == 'image/jpeg'">
           <img
-            class="mt-2"
-            :src="'data:image/jpeg;base64,' + message.message_thumbnail_base64"
-            alt="Image"
+            v-viewer
+            class="mt-2 max-h-96 max-w-md object-contain"
+            :src="
+              message.media_file_path ? message.media_file_path :
+              'data:image/jpeg;base64,' + message.message_thumbnail_base64
+            "
           />
+
+          <p v-if="!message.media_file_path" class="text-sm mt-2 italic">
+            The picture in full resolution is not available in your backup.
+          </p>
         </div>
 
         <!-- Voice Messages -->
@@ -67,7 +74,7 @@ export default {
       }
 
       return this.message.media_mime_type;
-    }
+    },
   },
 };
 </script>

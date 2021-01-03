@@ -36,9 +36,11 @@ window.axios = require('axios');
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
 import linkify from 'vue-linkify'
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
 
 Vue.directive('linkified', linkify)
-
+Vue.use(Viewer)
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el: '#hello',

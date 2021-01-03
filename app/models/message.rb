@@ -128,11 +128,12 @@ class Message < ApplicationRecord
   def media_file_path
     allowed_media_types = [
       'audio/aac',
-      'audio/ogg; codecs=opus'
+      'audio/ogg; codecs=opus',
+      'image/jpeg'
     ]
     return nil unless allowed_media_types.include?(media_mime_type)
 
-    file_path = thumb_image&.match(%r{(Media\/.*(?:opus|m4a))})&.captures&.first
+    file_path = thumb_image&.match(%r{(Media\/.*(?:opus|m4a|jpg))})&.captures&.first
     "WhatsApp/#{file_path}" if file_path && File.exist?(Rails.root.join("public/WhatsApp/#{file_path}"))
   end
 
