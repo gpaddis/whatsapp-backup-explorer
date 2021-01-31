@@ -13,8 +13,9 @@
             v-viewer
             class="mt-2 max-h-96 max-w-md object-contain"
             :src="
-              message.media_file_path ? message.media_file_path :
-              'data:image/jpeg;base64,' + message.message_thumbnail_base64
+              message.media_file_path
+                ? message.media_file_path
+                : 'data:image/jpeg;base64,' + message.message_thumbnail_base64
             "
           />
 
@@ -23,8 +24,23 @@
           </p>
         </div>
 
+        <!-- Videos -->
+        <!-- TODO: embed the base64 encoded media when exporting the chat. -->
+        <div v-if="media_type && media_type.includes('video')" class="mt-2">
+          <video
+            v-if="message.media_file_path"
+            class="mt-2 max-h-96 max-w-md object-contain"
+            controls
+          >
+            <source :src="message.media_file_path" />
+          </video>
+          <p v-else class="text-sm mt-2 italic">
+            This video is not available in your backup.
+          </p>
+        </div>
+
         <!-- Voice Messages -->
-        <!-- TODO: embed the bas64 encoded media when exporting the chat. -->
+        <!-- TODO: embed the base64 encoded media when exporting the chat. -->
         <div v-if="media_type && media_type.includes('audio')" class="mt-2">
           <audio controls>
             <source :src="message.media_file_path" />
